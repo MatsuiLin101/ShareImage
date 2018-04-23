@@ -25,7 +25,10 @@ SECRET_KEY = 'o2jg)$n2$p1ha)6m1=((wgwbh(wyy6q_%)7cyzxv-jb940g&qr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    'ml101-shareimage.herokuapp.com',
+]
 
 
 # Application definition

@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
-    'ml101-shareimage.herokuapp.com',
 ]
 
 

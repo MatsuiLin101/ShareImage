@@ -7,6 +7,13 @@
 
 ShareImage <br />
 <br />
+<a href="{% url 'upload' %}">Upload</a><br />
+<br />
+{% for img in images %}
+    <label>{{ img.id }}:{{ img.name }}</label><br />
+    <img src="media/{{ img.img }}" /><br />
+    <br />
+{% endfor %}
 
 </body>
 </html>

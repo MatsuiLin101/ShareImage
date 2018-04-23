@@ -3,6 +3,8 @@ from django.core.files.storage import FileSystemStorage
 
 from . import models
 
+import random, string
+
 # Create your views here.
 
 def home(request):
@@ -15,6 +17,7 @@ def upload(request):
     if request.method == "POST":
         img_name = request.FILES["img"].name
         img_file = request.FILES["img"]
+        img_name = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(8)) + "." + img_name.split(".")[-1]
         img_path = 'shareimageapp/' + img_name
         img_name = img_name.split(".")[0]
         img_upload = models.Image.objects.create(name=img_name)

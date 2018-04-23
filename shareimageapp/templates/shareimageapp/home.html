@@ -28,20 +28,27 @@ ShareImage <br />
 <br />
 <a href="{% url 'upload' %}">Upload</a><br />
 <br />
-{% for img in images %}
-    <table>
-        <tr>
-            <td>
-                <label>{{ img.name }}</label><button type="button" id="{{ img.id }}">delete</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <img src="media/{{ img.img }}" />
-            </td>
-        </tr>
-    </table>
-{% endfor %}
+<div class="container">
+    <div class="row">
+      {% for img in images %}
+        <div class="col-sm-4">
+          <table class="table table-bordered table-hover">
+              <tr>
+                  <td>
+                      <label>{{ img.name }}</label><button type="button" id="{{ img.id }}">delete</button>
+                  </td>
+              </tr>
+              <tr>
+                  <td>
+                      <img src="media/{{ img.img }}" class="img-responsive" style="height: 100px;" />
+                  </td>
+              </tr>
+          </table>
+        </div>
+      {% endfor %}
+    </div>
+</div>
+
 
 </body>
 </html>

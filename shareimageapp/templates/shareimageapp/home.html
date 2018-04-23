@@ -1,8 +1,27 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <title>ShareImage</title>
+
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+
+  <script>
+      $(function(){
+          $("button").click(function(){
+              $(this).parent().parent().parent().hide();
+              $.ajax({
+                  url: "/delete/" + $(this).attr("id"),
+                  type: "GET"
+              })
+          });
+      });
+  </script>
+
 </head>
+
 <body>
 
 ShareImage <br />
@@ -10,9 +29,18 @@ ShareImage <br />
 <a href="{% url 'upload' %}">Upload</a><br />
 <br />
 {% for img in images %}
-    <label>{{ img.id }}:{{ img.name }}</label><br />
-    <img src="media/{{ img.img }}" /><br />
-    <br />
+    <table>
+        <tr>
+            <td>
+                <label>{{ img.name }}</label><button type="button" id="{{ img.id }}">delete</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="media/{{ img.img }}" />
+            </td>
+        </tr>
+    </table>
 {% endfor %}
 
 </body>

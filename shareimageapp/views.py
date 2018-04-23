@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse
 
 from . import models
 
@@ -19,6 +20,7 @@ def upload(request):
         file_name = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(8))
         while True:
             try:
+                # If the file name didn't exist, objects.get will pop error, so the file name is unique
                 exist = models.Image.objects.get(name=file_name)
                 file_name = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(8))
             except:
@@ -34,3 +36,12 @@ def upload(request):
         return redirect(home)
 
     return render(request, 'shareimageapp/upload.html', locals())
+
+def delete(request, id):
+
+    if request.method == "GET":
+        delete = models.Image.objects.get(id=id)
+        delete.img.delete(save=True)
+        delete.delete()
+
+    return HttpResponse(id)

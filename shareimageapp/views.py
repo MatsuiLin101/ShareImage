@@ -15,11 +15,18 @@ def home(request):
 def upload(request):
 
     if request.method == "POST":
-        img_name = request.FILES["img"].name
-        img_file = request.FILES["img"]
-        img_name = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(8)) + "." + img_name.split(".")[-1]
+        # Check the random file name is unique
+        file_name = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(8))
+        while True:
+            try:
+                exist = models.Image.objects.get(name=file_name)
+                file_name = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(8))
+            except:
+                break
+        img_name = file_name + "." + request.FILES["img"].name.split(".")[-1]
         img_path = 'shareimageapp/' + img_name
         img_name = img_name.split(".")[0]
+        img_file = request.FILES["img"]
         img_upload = models.Image.objects.create(name=img_name)
         img_upload.img = FileSystemStorage().save(img_path, img_file)
         img_upload.save()
